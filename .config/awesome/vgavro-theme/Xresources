@@ -1,0 +1,31 @@
+*color0: #151515
+*color8: #8b8f93
+*color1: #A82200
+*color9: #FF3300
+*color2: #00CC00
+*color10: #008202
+*color3: #a86500
+*color11: #FF9900
+*color4: #30569C
+*color12: #4B86F3
+*color5: #655799
+*color13: #9E88F0
+*color6: #00BB00
+*color14: #73F7FF
+*color7: #888888
+*color15: #E1DDDD
+*foreground: WHITE
+*background: #151515
+
+URxvt*depth: 32
+URxvt*background: rgba:1500/1500/1500/eeee
+URxvt*font: xft:xos4 Terminus:size=10
+URxvt*cursorColor: gray
+URxvt*scrollBar: true
+Urxvt*secondaryScroll: true
+URxvt*scrollBar_right: true
+URxvt*scrollBar_floating: true
+URxvt*scrollstyle: plain
+URxvt*scrollColor: #252525
+URxvt*saveLines: 65535
+URxvt*iconFile: /usr/share/icons/gnome/32x32/apps/terminal.png
