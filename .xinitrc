@@ -13,12 +13,11 @@ fi
 # starting mpd, proper pid_file must be set in mpd.conf
 ps -p `cat ~/.config/mpd/pid` &> /dev/null || mpd
 
-# archlinux specific to use terminus font from aur
-# xset +fp /usr/share/fonts/local
-# xset fp rehash
-
 synclient HorizTwoFingerScroll=1
 setxkbmap -option "terminate:ctrl_alt_bksp"
+setxkbmap -layout us,ru,ua -option grp:caps_toggle -option grp:ctrls_toggle
 
-#exec urxvt
+# export QT_QPA_PLATFORMTHEME=qt5ct  qt5ct makes some shit anyway
+
+xrdb ~/.Xresources
 exec awesome

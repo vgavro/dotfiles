@@ -1,20 +1,29 @@
+! Black + DarkGrey
 *color0: #151515
 *color8: #8b8f93
+! DarkRed + Red
 *color1: #A82200
 *color9: #FF3300
+! DarkGreen + Green
 *color2: #00CC00
 *color10: #008202
-*color3: #a86500
+! DarkYellow + Yellow
+*color3: #A86500
 *color11: #FF9900
+! DarkBlue + Blue
 *color4: #30569C
 *color12: #4B86F3
+! DarkMagenta + Magenta
 *color5: #655799
 *color13: #9E88F0
+!DarkCyan + Cyan
 *color6: #00BB00
 *color14: #73F7FF
+! LightGrey + White
 *color7: #888888
 *color15: #E1DDDD
-*foreground: WHITE
+! Special
+*foreground: #FFFFFF
 *background: #151515
 
 URxvt*depth: 32
@@ -22,10 +31,13 @@ URxvt*background: rgba:1500/1500/1500/eeee
 URxvt*font: xft:xos4 Terminus:size=10
 URxvt*cursorColor: gray
 URxvt*scrollBar: true
-Urxvt*secondaryScroll: true
+URxvt*secondaryScroll: true
 URxvt*scrollBar_right: true
 URxvt*scrollBar_floating: true
 URxvt*scrollstyle: plain
-URxvt*scrollColor: #252525
+URxvt*scrollColor: #353535
 URxvt*saveLines: 65535
+URxvt*scrollTtyOutput: false
+URxvt*scrollWithBuffer: true
+URxvt*scrollTtyKeypress: true
 URxvt*iconFile: /usr/share/icons/gnome/32x32/apps/terminal.png

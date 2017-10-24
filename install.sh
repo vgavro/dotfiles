@@ -1,22 +1,27 @@
 #!/usr/bin/fish
 # TODO: add override option with renaming
 
-mkdir -p ~/.config/fish 
-ln -s $PWD/.config/fish/config.fish ~/.config/fish/config.fish
-ln -s $PWD/.tmux.conf ~/.tmux.conf
-ln -s $PWD/.vimrc ~/.vimrc
-ln -s $PWD/.gitconfig ~/.gitconfig
+mkdir -vp ~/.config/fish
+ln -vs $PWD/.config/fish/config.fish ~/.config/fish/config.fish
+
+ln -vs $PWD/.tmux.conf ~/.tmux.conf
+ln -vs $PWD/.vimrc ~/.vimrc
+ln -vs $PWD/.gitconfig ~/.gitconfig
 
 # DESKTOP
-mkdir -p ~/.config/awesome 
-ln -s $PWD/.config/awesome/rc.lua ~/.config/awesome/rc.lua
-ln -s $PWD/.config/awesome/vgavro-widgets ~/.config/awesome/vgavro-widgets
-ln -s $PWD/.config/awesome/vgavro-theme ~/.config/awesome/vgavro-theme
+mkdir -vp ~/.config/awesome
+ln -vs $PWD/.config/awesome/rc.lua ~/.config/awesome/rc.lua
+ln -vs $PWD/.config/awesome/vgavro-widgets ~/.config/awesome/
+ln -vs $PWD/.config/awesome/vgavro-theme ~/.config/awesome/
 
-mkdir -p ~/.config/mpd 
-ln -s $PWD/.config/mpd/mpd.conf ~/.config/mpd/mpd.conf
-ln -s $PWD/.xinitrc ~/.xinitrc
+mkdir -vp ~/.config/gtk-3.0
+ln -vs $PWD/.config/gtk-3.0/settings.ini ~/.config/gtk-3.0/settings.ini
 
-mkdir -p ~/Pictures
-ln -s $PWD/Pictures/avatar.jpg ~/Pictures/avatar.jpg
-ln -s $PWD/Pictures/face.jpg ~/Pictures/face.jpg
+mkdir -vp ~/.config/mpd
+ln -vs $PWD/.config/mpd/mpd.conf ~/.config/mpd/mpd.conf
+ln -vs $PWD/.xinitrc ~/.xinitrc
+ln -vs $PWD/.Xresources ~/.Xresources
+
+mkdir -vp ~/Pictures
+ln -vs $PWD/Pictures/avatar.jpg ~/Pictures/avatar.jpg
+ln -vs $PWD/Pictures/face.jpg ~/Pictures/face.jpg

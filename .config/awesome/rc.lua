@@ -1,6 +1,5 @@
 -- requirements:
--- cd ~/.config/awesome; git clone https://github.com/streetturtle/awesome-wm-widgets
--- yaourt -S arc-icon-theme acpi
+-- yaourt -S vicious terminus-cyrillic
 
 -- Standard awesome library
 local gears = require("gears")
@@ -30,8 +29,6 @@ function run_once(cmd)
 	awful.util.spawn_with_shell("pgrep -u $USER -x " .. cmd .. " || (" .. cmd .. ")")
 end
 
-function run(cmd) awful.util.spawn_with_shell(cmd) end
-
 -- Settings that can be redefined in local file
 if file_exists(HOME .. "/.config/awesome/rc_conf.lua") then
   require("rc_conf")
@@ -41,9 +38,8 @@ WINDOW_SIZE_HINTS_HONOR = WINDOW_SIZE_HINTS_HONOR or false
 WINDOW_TITLEBARS_ENABLED = WINDOW_TITLEBARS_ENABLED or false
 TERMINAL = TERMINAL or "urxvt"
 SHELL = SHELL or TERMINAL .. " -e /usr/bin/fish"
-THEME_DIR = THEME_DIR or HOME .. "/.config/awesome/vgavro-theme"
-LANGUAGES = LANGUAGES or "en,ru,uk"
-TIME_FORMAT = TIME_FORMAT or  "%a %y-%m-%d %R:%S"
+THEME = THEME or HOME .. "/.config/awesome/vgavro-theme"
+TIME_FORMAT = TIME_FORMAT or  " %a %y-%m-%d %R:%S "
 SCREENSHOT = SCREENSHOT or ("scrot 'scrot_%Y-%m-%d-%H%M%S.png' -e 'mv $f ~/Pictures/" ..
                             " && notify-send \"Screenshot created ~/Pictures/$f\"'")
 SYSTEM_MONITOR = SYSTEM_MONITOR or TERMINAL .. " -e htop"
@@ -51,10 +47,6 @@ MUSIC_PLAYER = MUSIC_PLAYER or TERMINAL .. " -e ncmpcpp"
 BROWSER = BROWSER or 'chromium'
 
 run_once("xcompmgr")
-if file_exists(THEME_DIR .. "/Xresources") then
-  run("xrdb -load " .. THEME_DIR .. "/Xresources")
-end
-run("setxkbmap -layout " .. LANGUAGES .. " -option grp:caps_toggle -option grp:ctrls_toggle")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -83,7 +75,7 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init(THEME_DIR .. "/theme.lua")
+beautiful.init(THEME .. "/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 -- terminal = TERMINAL
@@ -161,18 +153,13 @@ menubar.utils.terminal = TERMINAL -- Set the terminal for applications that requ
 -- {{{ Wibar
 -- Create a textclock widget
 mytextclock = wibox.widget.textclock(TIME_FORMAT, 1)
-
-separator = wibox.widget.textbox()
-separator:set_text(' ')
-
-battery = require('vgavro-widgets/battery/battery')
-battery_widget = battery()
-
-volume = require('vgavro-widgets/volume/volume')
-volume_widget = volume()
-
-keyboard_layout_flag = require('vgavro-widgets/keyboard_layout_flag/keyboard_layout_flag')
-keyboard_layout_flag_widget = keyboard_layout_flag()
+if file_exists("/sys/class/power_supply/BAT0/capacity") then
+    battery_widget = require('vgavro-widgets.battery')()
+end
+volume_widget = require('vgavro-widgets.volume')()
+keyboardlayout_flag_widget = require('vgavro-widgets.keyboardlayout_flag')()
+mem_graph_widget = require('vgavro-widgets.mem_graph')({ font = "xos4 Terminus 8" })
+cpu_graph_widget = require('vgavro-widgets.cpu_graph')({ font = "xos4 Terminus 8" })
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -270,13 +257,13 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            keyboard_layout_flag_widget,
+            cpu_graph_widget,
+            mem_graph_widget,
+            keyboardlayout_flag_widget,
             wibox.widget.systray(),
             volume_widget,
             battery_widget,
-            separator,
             mytextclock,
-            separator,
             s.mylayoutbox,
         },
     }
