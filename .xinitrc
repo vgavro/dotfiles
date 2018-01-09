@@ -14,7 +14,7 @@ fi
 ps -p `cat ~/.config/mpd/pid` &> /dev/null || mpd
 
 synclient HorizTwoFingerScroll=1
-setxkbmap -option "terminate:ctrl_alt_bksp"
+setxkbmap -option terminate:ctrl_alt_bksp
 setxkbmap -layout us,ru,ua -option grp:caps_toggle -option grp:ctrls_toggle
 
 # export QT_QPA_PLATFORMTHEME=qt5ct  qt5ct makes some shit anyway

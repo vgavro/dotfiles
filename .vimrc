@@ -11,6 +11,7 @@ Plug 'kchmck/vim-coffee-script'
 Plug 'digitaltoad/vim-pug'
 Plug 'wavded/vim-stylus'
 Plug 'posva/vim-vue'
+Plug 'cakebaker/scss-syntax.vim'
 Plug 'sekel/vim-vue-syntastic'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
@@ -180,8 +181,6 @@ set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNO
 " Handy replace
 vnoremap <C-r> "hy:%s%<C-r>h%%gc<left><left><left>
 
-let g:unite_source_history_yank_enable = 1
-
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_vue_checkers = ['eslint']
 "Using local eslint if found
@@ -196,9 +195,11 @@ endif
 exec "lcd" s:lcd
 let b:syntastic_javascript_eslint_exec = substitute(s:eslint_path, '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
 let b:syntastic_vue_eslint_exec = substitute(s:eslint_path, '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
+"echo b:syntastic_vue_eslint_exec
 
 let g:syntastic_html_checkers=['']
 let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_pug_checkers = ['pug_lint']
 
 let g:jedi#show_call_signatures = "2"  "don't be fucking ridiculous
 
@@ -221,4 +222,6 @@ endif
 
 " fix syntax highlight (for vue syntax for example)
 " from http://vim.wikia.com/wiki/Fix_syntax_highlighting
-autocmd BufEnter * :syntax sync fromstart
+"autocmd BufEnter * :syntax sync fromstart
+" https://github.com/posva/vim-vue#my-syntax-highlighting-stops-working-randomly
+autocmd FileType vue syntax sync fromstart
