@@ -18,13 +18,14 @@ if status --is-interactive
     end
     fisher fzf tuvistavie/fish-fastdir 2>/dev/null
     if  not type -q fzf
-        read -l -p 'echo "fzf not found. Install locally? [y/N]"' install_fzf
-        if [ "$install_fzf" = "y" ]
-            git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-            # NOTE: interactive prompt display nothing for some reason
-            # (in case some arguments would be added)
-            ~/.fzf/install --completion --key-bindings --no-update-rc
-        end
+        __fzf_install
+        # read -l -p 'echo "fzf not found. Install locally? [y/N]"' install_fzf
+        # if [ "$install_fzf" = "y" ]
+        #     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+        #     # NOTE: interactive prompt display nothing for some reason
+        #     # (in case some arguments would be added)
+        #     ~/.fzf/install --completion --key-bindings --no-update-rc
+        # end
     end
 end
 
