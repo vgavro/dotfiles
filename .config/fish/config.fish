@@ -23,7 +23,7 @@ if status --is-interactive
             git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
             # NOTE: interactive prompt display nothing for some reason
             # (in case some arguments would be added)
-            ~/.fzf/install --completion --key-bindings --update-rc
+            ~/.fzf/install --completion --key-bindings --no-update-rc
         end
     end
 end
