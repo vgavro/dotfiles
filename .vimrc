@@ -1,3 +1,9 @@
+if v:version < 705 &&  &shell =~# 'fish$'
+  " vim before 7.5 for 'system' to work properly
+  " https://github.com/fish-shell/fish-shell/issues/1494#issuecomment-46881273
+  set shell=/bin/bash
+endif
+
 if empty(glob("~/.vim/autoload/plug.vim"))
     execute '!curl --progress-bar -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.github.com/junegunn/vim-plug/master/plug.vim'
     let plugInstalled = 1
@@ -26,7 +32,7 @@ au! BufNewFile,BufRead *.sss set filetype=sass
 
 colorscheme wombat256mod
 
-call system("mkdir ".$HOME.'/.vim/undo')
+silent "!mkdir ".$HOME.'/.vim/undo'
 set undofile
 set undodir=$HOME/.vim/undo " where to save undo histories
 set undolevels=1000         " How many undos
