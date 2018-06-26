@@ -210,6 +210,8 @@ let g:syntastic_pug_checkers = ['pug_lint']
 let g:jedi#show_call_signatures = "2"  "don't be fucking ridiculous
 
 " Add the virtualenv's site-packages to vim path
+" TODO: https://github.com/python-mode/python-mode/pull/609/files#diff-5e18f3af0b3035dd80efc88c25cf95eb
+" activate_this removed for python3 manually created venv?
 let env_activate = "".
 \ "import os.path\n".
 \ "import sys\n".

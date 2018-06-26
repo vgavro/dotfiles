@@ -18,14 +18,20 @@ if status --is-interactive
     end
     fisher fzf tuvistavie/fish-fastdir 2>/dev/null
     if  not type -q fzf
-        __fzf_install
-        # read -l -p 'echo "fzf not found. Install locally? [y/N]"' install_fzf
-        # if [ "$install_fzf" = "y" ]
-        #     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-        #     # NOTE: interactive prompt display nothing for some reason
-        #     # (in case some arguments would be added)
-        #     ~/.fzf/install --completion --key-bindings --no-update-rc
-        # end
+        if type -q __fzf_install
+            __fzf_install
+        else
+            # removed from last versions of fish extension?
+            # read -l -p 'echo "fzf not found. Install locally? [y/N]"' install_fzf
+            # For some reason not work under tmux for old fish shells (2.3.1 for example)
+            set -l install_fzf "y"
+            if [ "$install_fzf" = "y" ]
+                git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+                # NOTE: interactive prompt display nothing for some reason
+                # (in case some arguments would be added)
+                ~/.fzf/install --completion --key-bindings --no-update-rc
+            end
+        end
     end
 end
 
@@ -122,11 +128,17 @@ end
 set __fish_git_prompt_showdirtystate 'yes'
 set __fish_git_prompt_showstashstate 'yes'
 set __fish_git_prompt_showupstream 'yes'
-set __fish_git_prompt_char_dirtystate '✚'
-set __fish_git_prompt_char_stagedstate '→'
-set __fish_git_prompt_char_stashstate '↩'
-set __fish_git_prompt_char_upstream_ahead '↑'
-set __fish_git_prompt_char_upstream_behind '↓'
+# set __fish_git_prompt_char_dirtystate '✚'
+# set __fish_git_prompt_char_stagedstate '→'
+# set __fish_git_prompt_char_stashstate '↩'
+# set __fish_git_prompt_char_upstream_ahead '↑'
+# set __fish_git_prompt_char_upstream_behind '↓'
+# Compability
+set __fish_git_prompt_char_dirtystate '+'
+set __fish_git_prompt_char_stagedstate '^'
+set __fish_git_prompt_char_stashstate '%'
+set __fish_git_prompt_char_upstream_ahead '>'
+set __fish_git_prompt_char_upstream_behind '<'
 
 function fish_prompt --description 'Write out the prompt'
     set -l last_status $status
