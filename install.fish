@@ -9,6 +9,7 @@ end
 
 _map .config/fish/config.fish
 
+_map .bashrc
 _map .tmux.conf
 _map .vimrc
 _map .gitconfig

@@ -10,6 +10,22 @@ end
 # Debian/other fish update (as of Debian 8 contains 2.2 only)
 # https://software.opensuse.org/download.html?project=shells%3Afish%3Arelease%3A2&package=fish
 
+if [ "$TERM" = "rxvt-unicode-256color" ]
+    if not test -e /usr/share/terminfo/r/rxvt-unicode-256color
+        # TODO: remove echo on supressing fish warning
+        echo "set xterm-256color"
+        set -gx TERM xterm-256color
+    end
+end
+set -x LC_ALL en_US.UTF-8
+set -x LANG en_US.UTF-8
+set -x EDITOR vim
+set -x SHELL /usr/bin/fish
+
+if [ -d $HOME/.bin ]
+    set PATH $HOME/.bin $PATH
+end
+
 if status --is-interactive
     if not type -q "fisher"
         echo 'Installing fisher'
@@ -37,15 +53,6 @@ end
 
 set -g FZF_LEGACY_KEYBINDINGS 0
 set -g FZF_DEFAULT_OPTS "--exact"
-
-set -x EDITOR vim
-set -x LC_ALL en_US.UTF-8
-set -x LANG en_US.UTF-8
-set -x SHELL /usr/bin/fish
-
-if [ -d $HOME/.bin ]
-    set PATH $HOME/.bin $PATH
-end
 
 # Fix for su not setting proper $USER
 set USER (whoami)
