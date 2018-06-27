@@ -5,7 +5,7 @@ set -e
 yum -y update
 yum -y install yum-utils
 yum -y groupinstall development
-yum -y install vim git tig wget curl fish htop psmisc
+yum -y install vim git tig wget curl fish htop psmisc iproute
 
 yum -y install https://centos7.iuscommunity.org/ius-release.rpm
 yum -y install tmux2u python36u python36u-pip python36u-devel
