@@ -1,9 +1,20 @@
 #!/usr/bin/fish
-#
-set SRC (dirname (status --current-filename))
+
+for option in $argv
+    switch "$option"
+        case -f --force
+            set OVERWRITE 1
+        case \*
+            printf "error: Unknown option %s\n" $option
+    end
+end
+
+set SRC (realpath (dirname (status --current-filename)))
 function _map
-    # TODO: add override option with renaming
     mkdir -vp (dirname $HOME/$argv)
+    if [ $OVERWRITE ]
+        rm $HOME/$argv
+    end
     ln -vs $SRC/$argv $HOME/$argv
 end
 
