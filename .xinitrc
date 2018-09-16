@@ -13,7 +13,8 @@ fi
 # starting mpd, proper pid_file must be set in mpd.conf
 ps -p `cat ~/.config/mpd/pid` &> /dev/null || mpd
 
-synclient HorizTwoFingerScroll=1
+which synclient && synclient HorizTwoFingerScroll=1
+
 setxkbmap -option terminate:ctrl_alt_bksp
 setxkbmap -layout us,ru,ua -option grp:caps_toggle -option grp:ctrls_toggle
 

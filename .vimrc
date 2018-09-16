@@ -19,6 +19,7 @@ Plug 'wavded/vim-stylus'
 Plug 'posva/vim-vue'
 Plug 'cakebaker/scss-syntax.vim'
 Plug 'sekel/vim-vue-syntastic'
+Plug 'leafgarland/typescript-vim'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'brooth/far.vim'
@@ -190,18 +191,17 @@ vnoremap <C-r> "hy:%s%<C-r>h%%gc<left><left><left>
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_vue_checkers = ['eslint']
 "Using local eslint if found
-let s:lcd = fnameescape(getcwd())
-silent! exec "lcd" expand('%:p:h')
+"let s:lcd = fnameescape(getcwd())
+"silent! exec "lcd" expand('%:p:h')
 if &shell =~# 'fish$'
   "set shell=sh
   let s:eslint_path = system('set NPM_BIN (npm bin); set PATH $NPM_BIN $PATH; which eslint')
 else
   let s:eslint_path = system('PATH=$(npm bin):$PATH && which eslint')
 endif
-exec "lcd" s:lcd
-let b:syntastic_javascript_eslint_exec = substitute(s:eslint_path, '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
-let b:syntastic_vue_eslint_exec = substitute(s:eslint_path, '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
-"echo b:syntastic_vue_eslint_exec
+"exec "lcd" s:lcd
+let g:syntastic_javascript_eslint_exec = substitute(s:eslint_path, '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
+let g:syntastic_vue_eslint_exec = substitute(s:eslint_path, '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
 
 let g:syntastic_html_checkers=['']
 let g:syntastic_python_checkers = ['flake8']

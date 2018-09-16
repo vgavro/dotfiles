@@ -16,6 +16,11 @@ return function(options)
     local code = keyboardlayout.widget._private.layout.text
     local imagebox = wibox.widget.imagebox(flags_dir .. get_image_name(code))
 
+    function change_keyboard_layout ()
+        awful.spawn("xkb-switch -n")
+    end
+    imagebox:connect_signal('button::press', change_keyboard_layout)
+
     keyboardlayout.widget.set_text = function(self, code)
         if code then
             self.set_text(code)  -- In case original widget is also used somewhere
