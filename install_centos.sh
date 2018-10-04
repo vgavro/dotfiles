@@ -8,7 +8,7 @@ set -e
 yum -y update
 yum -y install yum-utils
 yum -y groupinstall development
-yum -y install vim git tig wget curl fish htop psmisc
+yum -y install vim-enhanced tig wget curl fish htop psmisc
 
 if grep -q -i "release 6" /etc/redhat-release
 then
