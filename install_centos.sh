@@ -21,5 +21,5 @@ yum -y install tmux2u python36u python36u-pip python36u-devel git2u
 # NOTE: for centos6 for some reason it's not working as of fish 2.7.1 and centos 6.10
 # Workaround:
 # yum install -y https://download.opensuse.org/repositories/shells:/fish:/release:/2/CentOS_6/i686/fish-2.7.1-1.2.i686.rpm
-yum-config-manager --add-repo http://download.opensuse.org/repositories/shells:fish:release:2/CentOS_$VER/shells:fish:release:2.repo
+yum-config-manager --add-repo http://download.opensuse.org/repositories/shells:/fish:/release:/2/CentOS_$VER/shells:fish:release:2.repo
 yum -y install fish
