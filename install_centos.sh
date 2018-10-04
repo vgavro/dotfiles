@@ -1,5 +1,7 @@
 #!/bin/bash
 # NOTE: for Centos 6.10 update git from IUS, because it's too old for gitlab (and github?)
+# bash <(curl -s https://raw.githubusercontent.com/vgavro/dotfiles/master/install_centos.sh)
+
 set -e
 (( EUID )) && echo 'You need to be root.' && exit 1
 
