@@ -28,7 +28,7 @@
 
 URxvt*depth: 32
 URxvt*background: rgba:1500/1500/1500/eeee
-URxvt*font: xft:xos4 Terminus:size=10
+URxvt*font: xft:xos4 Terminus:size=14
 URxvt*cursorColor: gray
 URxvt*scrollBar: true
 URxvt*secondaryScroll: true

@@ -2,10 +2,6 @@
 
 [ $TERM == rxvt-unicode-256color ] && [ ! -f /usr/share/terminfo/r/rxvt-unicode-256color ] && {
     # apt-get install ncurses-term
-    export TERM=xterm-256color
+    [ -f /usr/share/terminfo/r/rxvt-256color ] && export TERM=rxvt-256color
+    [ -f /usr/share/terminfo/r/xterm-256color ] && export TERM=xterm-256color
 }
-
-# [[ $- != *i* ]] && return
-# if command -v fish 2>/dev/null; then
-#     exec fish
-# fi

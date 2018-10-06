@@ -26,12 +26,14 @@ function file_exists(name)
 end
 
 function run_once(cmd)
-	awful.util.spawn_with_shell("pgrep -u $USER -x " .. cmd .. " || (" .. cmd .. ")")
+    awful.util.spawn_with_shell(
+        "pgrep -u $USER -x " .. cmd .. " || (" .. cmd .. ")"
+    )
 end
 
 -- Settings that can be redefined in local file
 if file_exists(HOME .. "/.config/awesome/rc_conf.lua") then
-  require("rc_conf")
+    require("rc_conf")
 end
 WINDOW_SLAVE_DEFAULT = WINDOW_SLAVE_DEFAULT == nil and true or WINDOW_SLAVE_DEFAULT
 WINDOW_SIZE_HINTS_HONOR = WINDOW_SIZE_HINTS_HONOR or false
@@ -154,7 +156,9 @@ menubar.utils.terminal = TERMINAL -- Set the terminal for applications that requ
 -- Create a textclock widget
 mytextclock = wibox.widget.textclock(TIME_FORMAT, 1)
 if file_exists("/sys/class/power_supply/BAT0/capacity") then
-    battery_widget = require('vgavro-widgets.battery')()
+    battery_widget = require('vgavro-widgets.battery')({id = 'BAT0'})
+elseif file_exists("/sys/class/power_supply/BAT1/capacity") then
+    battery_widget = require('vgavro-widgets.battery')({id = 'BAT1'})
 end
 volume_widget = require('vgavro-widgets.volume')()
 keyboardlayout_flag_widget = require('vgavro-widgets.keyboardlayout_flag')()
@@ -396,8 +400,12 @@ globalkeys = gears.table.join(
     awful.key({}, "XF86AudioNext", function () awful.util.spawn("mpc next") end),
     awful.key({}, "XF86AudioPrev", function () awful.util.spawn("mpc prev") end),
 
-    awful.key({}, "XF86MonBrightnessUp", function () awful.util.spawn("xbacklight +10") end),
-    awful.key({}, "XF86MonBrightnessDown", function () awful.util.spawn("xbacklight -10") end)
+    awful.key({}, "XF86MonBrightnessUp", function () awful.util.spawn(
+        file_exists("/usr/bin/light") and "light -A 10" or "xbacklight +10"
+    ) end),
+    awful.key({}, "XF86MonBrightnessDown", function () awful.util.spawn(
+        file_exists("/usr/bin/light") and "light -U 10" or "xbacklight -10"
+    ) end)
 )
 
 clientkeys = gears.table.join(

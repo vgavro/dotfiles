@@ -72,9 +72,11 @@ function __virtualenv_hook --on-variable PWD --description 'Auto activate virtua
   status --is-command-substitution; and return
   if [ -f ./env/bin/activate.fish -a "$VIRTUAL_ENV" != "$PWD/env" ]
       source ./env/bin/activate.fish
+  else if [ -f ./venv/bin/activate.fish -a "$VIRTUAL_ENV" != "$PWD/venv" ]
+      source ./venv/bin/activate.fish
   else
       if not [ -z $VIRTUAL_ENV ]
-          if not echo $PWD | grep -q '^'(echo $VIRTUAL_ENV | sed -e 's/\/env$//')
+          if not echo $PWD | grep -q '^'(dirname $VIRTUAL_ENV)
               if type -q deactivate
                   deactivate
               end
