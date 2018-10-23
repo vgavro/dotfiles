@@ -18,6 +18,7 @@ else
 fi
 
 yum -y install https://centos$VER.iuscommunity.org/ius-release.rpm
+yum -y remove git
 yum -y install tmux2u python36u python36u-pip python36u-devel git2u
 
 # NOTE: for centos6 for some reason it's not working as of fish 2.7.1 and centos 6.10
