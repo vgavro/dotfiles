@@ -11,13 +11,19 @@ function aur_install {
   cd ..
   rm -rf $1
 }
+localectl set-locale LANG=en_US.UTF-8
+timedatectl set-timezone Europe/Kiev
+timedatectl set-local-rtc 0  # 1 for windows dual-boot
+timedatectl set-ntp 1
 
-pacman -Sy --noconfirm --needed base-devel vim git tig wget curl fish fzf tmux ranger htop
+pacman -Sy --noconfirm --needed base-devel man vim git tig wget curl fish fzf tmux ranger htop
 
-pacman -S --noconfirm yajl
-aur_install package-query  # yajl required
-aur_install yaourt  # package-query required
+pacman -S --noconfirm go
+aur_install yay
 
-yaourt -S --noconfirm xorg xorg-xinit awesome mpd ncmpcpp rxvt-unicode-patched light gnome-icon-theme qbittorrent telegram-desktop wicd-patched wicd-gtk xlockmore
+yay -S --noconfirm terminus-font-ll2-td1-otb
+yay -S --noconfirm xorg xorg-xinit xorg-xrandr xorg-xkill awesome vicious mpd ncmpcpp rxvt-unicode-patched light gnome-icon-theme qbittorrent telegram-desktop xlockmore openssh
+yay -S --noconfirm ttf-google-fonts-git
+yay -S --noconfirm pulseaudio pavucontrol
 
-sudo systemctl enable wicd sshd
+sudo systemctl enable sshd

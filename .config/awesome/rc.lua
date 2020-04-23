@@ -162,8 +162,8 @@ elseif file_exists("/sys/class/power_supply/BAT1/capacity") then
 end
 volume_widget = require('vgavro-widgets.volume')()
 keyboardlayout_flag_widget = require('vgavro-widgets.keyboardlayout_flag')()
-mem_graph_widget = require('vgavro-widgets.mem_graph')({ font = "xos4 Terminus 8" })
-cpu_graph_widget = require('vgavro-widgets.cpu_graph')({ font = "xos4 Terminus 8" })
+mem_graph_widget = require('vgavro-widgets.mem_graph')({ font = "Terminus 8" })
+cpu_graph_widget = require('vgavro-widgets.cpu_graph')({ font = "Terminus 8" })
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(

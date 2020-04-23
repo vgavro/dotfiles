@@ -8,7 +8,7 @@ fi
 
 # starting pulseaudio manually because it was removed from xinitrc.d
 # due https://bugs.archlinux.org/task/36077
-/usr/bin/start-pulseaudio-x11
+# /usr/bin/start-pulseaudio-x11
 
 # starting mpd, proper pid_file must be set in mpd.conf
 ps -p `cat ~/.config/mpd/pid` &> /dev/null || mpd
