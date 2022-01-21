@@ -1,30 +1,26 @@
-# Start X at login
+# startx at login
 if status --is-login
-    if [ -z "$DISPLAY" -a "$XDG_VTNR" = 1 ]
+    if [ -z "$DISPLAY" -a "$XDG_VTNR" = 1 -a -x (which startx) ]
         exec startx -- -keeptty
     end
 end
 
-# Ubuntu fish update (as of Ubuntu 16 contains 2.2 only)
-# https://launchpad.net/~fish-shell/+archive/ubuntu/release-2
-# Debian/other fish update (as of Debian 8 contains 2.2 only)
-# https://software.opensuse.org/download.html?project=shells%3Afish%3Arelease%3A2&package=fish
+# Ubuntu ppa:
+# https://launchpad.net/~fish-shell/+archive/ubuntu/release-3
+# Other systems:
+# https://software.opensuse.org/download.html?project=shells%3Afish%3Arelease%3A3&package=fish
 
 if [ "$TERM" = "rxvt-unicode-256color" ]
     if not test -e /usr/share/terminfo/r/rxvt-unicode-256color
         # TODO: remove echo on supressing fish warning
         echo "set xterm-256color"
-        set -gx TERM xterm-256color
+        set -x TERM xterm-256color
     end
 end
 set -x LC_ALL en_US.UTF-8
 set -x LANG en_US.UTF-8
 set -x EDITOR vim
 set -x SHELL /usr/bin/fish
-
-if [ -d $HOME/.bin ]
-    set PATH $HOME/.bin $PATH
-end
 
 if status --is-interactive
     if not type -q "fisher"
@@ -172,7 +168,7 @@ function fish_prompt --description 'Write out the prompt'
     echo -ns  (set_color $fish_color_cwd) (prompt_pwd)
 
     if not [ -z "$VIRTUAL_ENV" ]
-        echo -ns (set_color cyan --bold) "(env)"
+        echo -ns (set_color cyan --bold) "(venv)"
     end
 
     set -l vcs_prompt (__fish_vcs_prompt)
@@ -189,21 +185,6 @@ function fish_prompt --description 'Write out the prompt'
         echo -ns (set_color red --bold) $last_status
     end
     set_color normal
-
-    # if [ $CMD_DURATION -gt (math "1000 * 10") ]
-    #     # was working more than 10 seconds
-    #     set -l hours (math "$CMD_DURATION / 3600000")
-    #     set -l mins (math "$CMD_DURATION % 3600000 / 60000")
-    #     set -l secs (math "$CMD_DURATION % 60000 / 1000")
-    #     set -l time_str ""
-    #     if [ $hours -gt 0 ]
-    #         set time_str {$time_str}{$hours}"h"
-    #     end
-    #     if [ $mins -gt 0 ]
-    #         set time_str {$time_str}{$mins}"m"
-    #     end
-    #     echo -ns "[$time_str" "$secs" "s]"
-    # end
 
     echo -ns "$prompt_char" " "
 end

@@ -43,7 +43,7 @@ theme.opacity_focus = 1
 theme.wibar_height = 16
 
 -- yaourt -S terminus-cyrillic
-theme.font = "xos4 Terminus 10"
+theme.font = "Terminus 10"
 
 theme.bg_normal = shade_color(WHITE, 1) .. opacity(0.8)
 theme.bg_focus = xrdb.color4 -- DarkBlue
