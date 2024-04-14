@@ -42,11 +42,17 @@ theme.opacity_normal = 0.9
 theme.opacity_focus = 1
 theme.wibar_height = 16
 
--- yaourt -S terminus-cyrillic
-theme.font = "Terminus 10"
+-- pacman -S terminus-font
+-- NOTE: use "Terminus 10" for less than Full HD
+theme.font = "Terminus 12"
 
-theme.bg_normal = shade_color(WHITE, 1) .. opacity(0.8)
-theme.bg_focus = xrdb.color4 -- DarkBlue
+--theme.bg_normal = shade_color(WHITE, 1) .. opacity(0.8)
+theme.bg_normal = "#1e1e1e"
+-- theme.bg_focus = -- xrdb.color4 -- DarkBlue
+-- theme.bg_focus = "#1358a0"
+theme.bg_focus = '#195da5'
+-- theme.bg_focus = "#00aaff"
+-- #87afff
 theme.bg_urgent = xrdb.color11  -- Yellow
 theme.bg_minimize = shade_color(WHITE, 0.7)
 theme.bg_systray = theme.bg_normal
@@ -59,10 +65,25 @@ theme.fg_minimize = theme.fg_normal
 theme.useless_gap   = dpi(0)
 theme.border_width  = dpi(2)
 theme.border_normal = shade_color(WHITE, 0.8)
-theme.border_focus  = xrdb.color4 -- DarkBlue
+-- theme.border_focus  = xrdb.color4 -- DarkBlue
+theme.border_focus  = theme.bg_focus
 theme.border_marked = xrdb.color3  -- DarkYellow
+
+-- https://awesomewm.org/doc/api/classes/awful.widget.taglist.html
+theme.taglist_fg_focus = theme.fg_focus
+theme.taglist_bg_focus = theme.bg_focus
+theme.taglist_fg_urgent = theme.fg_urgent
+theme.taglist_bg_urgent = theme.bg_urgent
+theme.taglist_fg_occupied = theme.fg_normal
+theme.taglist_bg_occupied = theme.bg_normal
+theme.taglist_fg_empty = theme.fg_normal
+theme.taglist_bg_empty = theme.bg_normal
+theme.taglist_fg_volatile = theme.fg_normal
+theme.taglist_bg_volatile = theme.bg_normal
+-- ...
+
 
 theme.wallpaper = current_dir .. "/wallpaper.jpg"
 
-theme.awesome_icon = nil  -- Menu button hidden
+-- theme.awesome_icon = nil  -- Menu button hidden
 return theme

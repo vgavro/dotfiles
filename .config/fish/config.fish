@@ -1,7 +1,9 @@
 # startx at login
 if status --is-login
     if [ -z "$DISPLAY" -a "$XDG_VTNR" = 1 -a -x (which startx) ]
-        exec startx -- -keeptty
+      mkdir -p ~/.local/share/xorg
+      echo "...running startx, log file: ~/.local/share/xorg/startx.log"
+      exec startx -- -keeptty > ~/.local/share/xorg/startx.log 2>&1
     end
 end
 
@@ -70,6 +72,8 @@ function __virtualenv_hook --on-variable PWD --description 'Auto activate virtua
       source ./env/bin/activate.fish
   else if [ -f ./venv/bin/activate.fish -a "$VIRTUAL_ENV" != "$PWD/venv" ]
       source ./venv/bin/activate.fish
+  else if [ -f ./.venv/bin/activate.fish -a "$VIRTUAL_ENV" != "$PWD/.venv" ]
+      source ./.venv/bin/activate.fish
   else
       if not [ -z $VIRTUAL_ENV ]
           if not echo $PWD | grep -q '^'(dirname $VIRTUAL_ENV)

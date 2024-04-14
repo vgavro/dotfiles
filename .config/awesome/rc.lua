@@ -1,6 +1,3 @@
--- requirements:
--- yaourt -S vicious terminus-cyrillic
-
 -- Standard awesome library
 local gears = require("gears")
 local awful = require("awful")
@@ -26,8 +23,8 @@ function file_exists(name)
 end
 
 function run_once(cmd)
-    awful.util.spawn_with_shell(
-        "pgrep -u $USER -x " .. cmd .. " || (" .. cmd .. ")"
+    awful.spawn.easy_async_with_shell(
+        "pgrep -u $USER -f -x '" .. cmd  .. "' || (" .. cmd .. ")"
     )
 end
 
@@ -38,17 +35,19 @@ end
 WINDOW_SLAVE_DEFAULT = WINDOW_SLAVE_DEFAULT == nil and true or WINDOW_SLAVE_DEFAULT
 WINDOW_SIZE_HINTS_HONOR = WINDOW_SIZE_HINTS_HONOR or false
 WINDOW_TITLEBARS_ENABLED = WINDOW_TITLEBARS_ENABLED or false
-TERMINAL = TERMINAL or "urxvt"
+TERMINAL = TERMINAL or "alacritty"
 SHELL = SHELL or TERMINAL .. " -e /usr/bin/fish"
 THEME = THEME or HOME .. "/.config/awesome/vgavro-theme"
-TIME_FORMAT = TIME_FORMAT or  " %a %y-%m-%d %R:%S "
+TIME_FORMAT = TIME_FORMAT or  " %a %y-%m-%d %R:%S %Z "
 SCREENSHOT = SCREENSHOT or ("scrot 'scrot_%Y-%m-%d-%H%M%S.png' -e 'mv $f ~/Pictures/" ..
                             " && notify-send \"Screenshot created ~/Pictures/$f\"'")
 SYSTEM_MONITOR = SYSTEM_MONITOR or TERMINAL .. " -e htop"
 MUSIC_PLAYER = MUSIC_PLAYER or TERMINAL .. " -e ncmpcpp"
-BROWSER = BROWSER or 'chromium'
+BROWSER = BROWSER or 'google-chrome-stable'
 
 run_once("xcompmgr")
+run_once("cmst -m")
+run_once("telegram-desktop -startintray")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -138,6 +137,7 @@ myawesomemenu = {
 }
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
+                                    { "xinput-gui", "xinput-gui" },
                                     { "open terminal", SHELL }
                                   }
                         })
@@ -162,8 +162,8 @@ elseif file_exists("/sys/class/power_supply/BAT1/capacity") then
 end
 volume_widget = require('vgavro-widgets.volume')()
 keyboardlayout_flag_widget = require('vgavro-widgets.keyboardlayout_flag')()
-mem_graph_widget = require('vgavro-widgets.mem_graph')({ font = "xos4 Terminus 8" })
-cpu_graph_widget = require('vgavro-widgets.cpu_graph')({ font = "xos4 Terminus 8" })
+mem_graph_widget = require('vgavro-widgets.mem_graph')({ font = "Terminus 8" })
+cpu_graph_widget = require('vgavro-widgets.cpu_graph')({ font = "Terminus 8" })
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -247,14 +247,13 @@ awful.screen.connect_for_each_screen(function(s)
     s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist_buttons)
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s, height = beautiful.wibar_height })
+    s.mywibox = awful.wibar({ position = "top", screen = s, height = beautiful.wibar_height, bg = beautiful.bg_normal .. "00" })
 
     -- Add widgets to the wibox
     s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
-            mylauncher,
             s.mytaglist,
             s.mypromptbox,
         },
@@ -268,6 +267,7 @@ awful.screen.connect_for_each_screen(function(s)
             volume_widget,
             battery_widget,
             mytextclock,
+            mylauncher,
             s.mylayoutbox,
         },
     }
@@ -392,19 +392,20 @@ globalkeys = gears.table.join(
     -- Multimedia keys
     awful.key({}, "XF86AudioRaiseVolume", function () awful.util.spawn("amixer set Master 5%+") end),
     awful.key({}, "XF86AudioLowerVolume", function () awful.util.spawn("amixer set Master 5%-") end),
-    -- pactl may set volume >100%, if you're using pulseaudio
-    awful.key({ "Shift" }, "XF86AudioRaiseVolume", function () awful.util.spawn("pactl -- set-sink-volume @DEFAULT_SINK@ +5%") end),
-    awful.key({ "Shift" }, "XF86AudioLowerVolume", function () awful.util.spawn("pactl -- set-sink-volume @DEFAULT_SINK@ -5%") end),
+    -- pactl may set volume >100%
+    awful.key({ 'Shift' }, "XF86AudioRaiseVolume", function () awful.util.spawn("pactl -- set-sink-volume @DEFAULT_SINK@ +5%") end),
+    awful.key({ 'Shift' }, "XF86AudioLowerVolume", function () awful.util.spawn("pactl -- set-sink-volume @DEFAULT_SINK@ -5%") end),
+    -- awful.key({}, "XF86AudioMute", function () awful.util.spawn("pactl -- set-sink-mute @DEFAULT_SINK@ toggle") end),
     awful.key({}, "XF86AudioMute", function () awful.util.spawn("amixer set Master toggle") end),
     awful.key({}, "XF86AudioPlay", function () awful.util.spawn("mpc toggle") end),
     awful.key({}, "XF86AudioNext", function () awful.util.spawn("mpc next") end),
     awful.key({}, "XF86AudioPrev", function () awful.util.spawn("mpc prev") end),
 
     awful.key({}, "XF86MonBrightnessUp", function () awful.util.spawn(
-        file_exists("/usr/bin/light") and "light -A 10" or "xbacklight +10"
+        file_exists("/usr/bin/brightnessctl") and "brightnessctl s 5%+" or "xbacklight +5"
     ) end),
     awful.key({}, "XF86MonBrightnessDown", function () awful.util.spawn(
-        file_exists("/usr/bin/light") and "light -U 10" or "xbacklight -10"
+        file_exists("/usr/bin/brightnessctl") and "brightnessctl s 5%-" or "xbacklight -5"
     ) end)
 )
 

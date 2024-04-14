@@ -12,7 +12,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/syntastic'
 Plug 'davidhalter/jedi-vim'
-Plug 'flazz/vim-colorschemes'
+"Plug 'flazz/vim-colorschemes'
 Plug 'kchmck/vim-coffee-script'
 Plug 'digitaltoad/vim-pug'
 Plug 'wavded/vim-stylus'
@@ -23,6 +23,7 @@ Plug 'leafgarland/typescript-vim'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'brooth/far.vim'
+Plug 'joshdick/onedark.vim'
 call plug#end()
 if exists("plugInstalled")
     PlugInstall
@@ -31,13 +32,32 @@ end
 filetype plugin on
 au! BufNewFile,BufRead *.sss set filetype=sass
 
-colorscheme wombat256mod
+set termguicolors
+syntax on
+let g:onedark_terminal_italics = 1
+let g:onedark_color_overrides = {
+\  "foreground": { "gui": "#e1dddd", "cterm": "225", "cterm16": "0" },
+\  "background": { "gui": "#151515", "cterm": "225", "cterm16": "0" },
+\  "red": { "gui": "#fd110b", "cterm": "225", "cterm16": "0" },
+\  "green": { "gui": "#1dc160", "cterm": "225", "cterm16": "0" },
+\  "yellow": { "gui": "#e8bb35", "cterm": "225", "cterm16": "0" },
+\  "blue": { "gui": "#227fe2", "cterm": "225", "cterm16": "0" },
+\  "magenta": { "gui": "#8138f2", "cterm": "225", "cterm16": "0" },
+\  "cyan": { "gui": "#00bfff", "cterm": "225", "cterm16": "0" },
+\  "white": { "gui": "#e1dddd", "cterm": "225", "cterm16": "0" },
+\ }
+let g:onedark_color_overrides = {
+\  "background": { "gui": "#151515", "cterm": "225", "cterm16": "0" },
+\  "green": { "gui": "#1dc160", "cterm": "225", "cterm16": "0" },
+\ }
+colorscheme onedark
 
 silent "!mkdir ".$HOME.'/.vim/undo'
-set undofile
 set undodir=$HOME/.vim/undo " where to save undo histories
+set undofile
 set undolevels=1000         " How many undos
 set undoreload=10000        " number of lines to save for undo
+" test aaa
 
 if has("gui_running")
   set guioptions-=T "no toolbars
@@ -79,24 +99,28 @@ map <Down> gj
 map k gk
 map <Up> gk
 
-if &term =~ "xterm\\|rxvt"
-  let &t_SI = "\<Esc>]12;orange\x7"
-  let &t_EI = "\<Esc>]12;gray\x7"
-endif
-if (exists('$TMUX'))
-  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]12;orange\x7\<Esc>\\"
-  "use a grey cursor otherwise
-  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]12;gray\x7\<Esc>\\"
-endif
-if ($TERM_PROGRAM == 'iTerm.app')
-    if (exists('$TMUX'))
-        let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-        let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-    else
-        let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-        let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-    endif
-endif
+let &t_SI = "\<Esc>[6 q"
+let &t_SR = "\<Esc>[4 q"
+let &t_EI = "\<Esc>[0 q"
+
+"if &term =~ "xterm\\|rxvt"
+"  let &t_SI = "\<Esc>]12;orange\x7"
+"  let &t_EI = "\<Esc>]12;gray\x7"
+"endif
+"if (exists('$TMUX'))
+"  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]12;orange\x7\<Esc>\\"
+"  "use a grey cursor otherwise
+"  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]12;gray\x7\<Esc>\\"
+"endif
+"if ($TERM_PROGRAM == 'iTerm.app')
+"    if (exists('$TMUX'))
+"        let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+"        let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+"    else
+"        let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+"        let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+"    endif
+"endif
 "upon hitting escape to change modes,
 "send successive move-left and move-right
 "commands to immediately redraw the cursor
@@ -219,7 +243,7 @@ let env_activate = "".
 \ "    project_base_dir = os.environ.get('VIRTUAL_ENV', './env/')\n".
 \ "    sys.path.insert(0, project_base_dir)\n".
 \ "    activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')\n".
-\ "    exec(open(activate_this).read(), dict(__file__=activate_this))"
+\ "    os.path.exists(activate_this) and exec(open(activate_this).read(), dict(__file__=activate_this))"
 
 if has("python")
   python import vim; exec(vim.eval('env_activate'))
@@ -233,3 +257,10 @@ endif
 "autocmd BufEnter * :syntax sync fromstart
 " https://github.com/posva/vim-vue#my-syntax-highlighting-stops-working-randomly
 autocmd FileType vue syntax sync fromstart
+
+" go format
+au BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4
+
+" show tabs
+set list
+set listchars=tab:>-

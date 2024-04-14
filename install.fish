@@ -27,6 +27,8 @@ _map .vimrc
 _map .gitconfig
 
 if [ $DESKTOP ]
+    xdg-user-dirs-update
+
     _map .xinitrc
     _map .Xresources
 
@@ -38,12 +40,14 @@ if [ $DESKTOP ]
 
     _map .config/gtk-3.0/settings.ini
 
-    _map .gtkrc-2.0
+    _map .config/mpv
 
+    mkdir -p .local/share/mpd
     _map .config/mpd/mpd.conf
 
     _map Pictures/avatar.jpg
     _map Pictures/face.jpg
+    ln -s $SRC/Pictures/avatar.jpg ~/.face; or true
 end
 
 functions --erase _map

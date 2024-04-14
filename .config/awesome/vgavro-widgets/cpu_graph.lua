@@ -1,5 +1,6 @@
 local wibox = require("wibox")
 local vicious = require("vicious")
+local beautiful = require("beautiful")
 local xresources = require("beautiful.xresources")
 local xrdb = xresources.get_current_theme()
 
@@ -9,6 +10,7 @@ return function(options)
     local graph = wibox.widget {
         max_value = 100,
         color = options.color or xrdb.color4, -- blue
+        background_color = beautiful.bg_normal,
         forced_width = options.forced_width or 40,
         step_width = options.step_width or 2,
         step_spacing = options.step_spacing or 1,

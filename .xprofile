@@ -1,0 +1,8 @@
+#!/bin/bash
+
+which synclient && synclient HorizTwoFingerScroll=1
+
+setxkbmap -option terminate:ctrl_alt_bksp
+setxkbmap -layout us,ru,ua -option grp:caps_toggle -option grp:ctrls_toggle
+
+xrdb ~/.Xresources

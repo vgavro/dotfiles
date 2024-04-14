@@ -1,5 +1,0 @@
-# yaourt -S gnome-themes-standard
-gtk-theme-name="Adwaita-dark"
-gtk-icon-theme-name="Adwaita"
-# yaourt -S ttf-droid
-gtk-font-name="Droid Sans 10"

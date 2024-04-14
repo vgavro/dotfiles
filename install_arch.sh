@@ -2,22 +2,21 @@
 set -e
 (( EUID )) && echo 'You need to be root.' && exit 1
 
-function aur_install {
-  mkdir -p /tmp/aur_install
-  cd /tmp/aur_install
-  git clone https://aur.archlinux.org/$1.git
-  cd $1
-  makepkg -si --noconfirm
+pacman -Sy --noconfirm --needed base-devel vim git tig wget curl fish fzf tmux ranger htop
+which yay || {
+  pacman -S --noconfirm --needed go
+  ROOT=/tmp/yay_install
+  rm -rf $ROOT
+  sudo -u nobody mkdir $ROOT
+  cd $ROOT
+  sudo -u nobody git clone https://aur.archlinux.org/yay.git
+  cd yay
+  sudo -u nobody env GOCACHE=$ROOT makepkg --noconfirm
+  pacman -U --noconfirm yay-*.pkg.tar.zst
   cd ..
-  rm -rf $1
+  rm -rf yay
 }
 
-pacman -Sy --noconfirm --needed base-devel vim git tig wget curl fish fzf tmux ranger htop
+yay -S --noconfirm --needed xorg xorg-xinit awesome vicious mpd ncmpcpp rxvt-unicode-patched light gnome-icon-theme qbittorrent telegram-desktop xlockmore connman bluez openvpn wpa_supplicant cmst google-chrome
 
-pacman -S --noconfirm yajl
-aur_install package-query  # yajl required
-aur_install yaourt  # package-query required
-
-yaourt -S --noconfirm xorg xorg-xinit awesome mpd ncmpcpp rxvt-unicode-patched light gnome-icon-theme qbittorrent telegram-desktop wicd-patched wicd-gtk xlockmore
-
-sudo systemctl enable wicd sshd
+sudo systemctl enable connman sshd

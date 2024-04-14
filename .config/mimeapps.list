@@ -7,15 +7,15 @@ x-scheme-handler/http=google-chrome.desktop;chromium.desktop;firefox.desktop
 x-scheme-handler/https=google-chrome.desktop;chromium.desktop;firefox.desktop
 x-scheme-handler/ftp=google-chrome.desktop;chromium.desktop;firefox.desktop
 
-x-scheme-handler/magnet=qbittorrent.desktop;
+x-scheme-handler/magnet=tixati.desktop;qbittorrent.desktop;
 
-x-scheme-handler/icy=vlc.desktop;
-x-scheme-handler/icyx=vlc.desktop;
-x-scheme-handler/mms=vlc.desktop;
-x-scheme-handler/mmsh=vlc.desktop;
-x-scheme-handler/rtmp=vlc.desktop;
-x-scheme-handler/rtp=vlc.desktop;
-x-scheme-handler/rtsp=vlc.desktop;
+x-scheme-handler/icy=mpv.desktop;vlc.desktop;
+x-scheme-handler/icyx=mpv.desktop;vlc.desktop;
+x-scheme-handler/mms=mpv.desktop;vlc.desktop;
+x-scheme-handler/mmsh=mpv.desktop;vlc.desktop;
+x-scheme-handler/rtmp=mpv.desktop;vlc.desktop;
+x-scheme-handler/rtp=mpv.desktop;vlc.desktop;
+x-scheme-handler/rtsp=mpv.desktop;vlc.desktop;
 
 application/epub+zip=org.pwmt.zathura-pdf-mupdf.desktop;
 application/oxps=org.pwmt.zathura-pdf-mupdf.desktop;
@@ -23,7 +23,7 @@ application/pdf=org.pwmt.zathura-pdf-mupdf.desktop;
 image/vnd.djvu=org.pwmt.zathura-djvu.desktop;
 image/vnd.djvu+multipage=org.pwmt.zathura-djvu.desktop;
 
-application/x-bittorrent=qbittorrent.desktop;
+application/x-bittorrent=tixati.desktop;qbittorrent.desktop;
 
 application/xhtml_xml=google-chrome.desktop;chromium.desktop;firefox.desktop
 image/webp=google-chrome.desktop;chromium.desktop;firefox.desktop

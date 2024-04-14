@@ -1,0 +1,61 @@
+{
+    "audio": "pipewire",
+    "bootloader": "grub-install",
+    "custom-commands": [
+      "getent passwd root && passwd root",
+
+      "echo blacklist pcspkr > /etc/modprobe.d/blacklist-pcspkr.conf",
+      "echo blacklist iTCO_wdt > /etc/modprobe.d/blacklist-iTCO_wdt.conf",
+
+      "sed -i -r 's/^#Color$/Color/' /etc/pacman.conf",
+
+      "sed -i -r 's/^GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 quiet\"$/GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=4\"/' /etc/default/grub",
+      "grub-mkconfig -o /boot/grub/grub.cfg",
+
+      "sed -i -r 's/^# AllowHostnameUpdates = true$/AllowHostnameUpdates = false/' /etc/connman/main.conf",
+      "sed -i -r 's/^# AllowDomainnameUpdates = true$/AllowDomainnameUpdates = false/' /etc/connman/main.conf",
+
+      "getent passwd vgavro && passwd vgavro",
+      "getent passwd vgavro && sed -i -r 's/^vgavro ALL=\(ALL\) ALL$/vgavro ALL=(ALL) NOPASSWD: ALL/' /etc/sudoers",
+      "getent passwd vgavro && sudo -u vgavro systemctl --enable mpd.service"
+    ],
+    "filesystem": "ext4",
+    "packages": [
+      "connman", "wpa_supplicant", "openvpn", "pptpclient", "bluez",
+      "openssh",
+      "brightnessctl", "usbutils", "alsa-tools", "alsa-utils", "lm_sensors",
+      "hdparm", "sdparm", "smartmontools",
+      "tpacpi-bat",
+      "git", "fzf", "fish", "tmux", "htop", "jq", "vim", "neovim", "ranger", "mc", "openbsd-netcat", "inetutils", "ldns",
+      "p7zip", "unrar", "pigz", "android-tools",
+      "awesome", "vicious", "xcompmgr", "scrot", "xlockmore", "pavucontrol", "xterm", "alacritty",
+      "xdg-utils", "xdg-user-dirs", "gnome-themes-extra", "qalculate-gtk", "flameshot",
+      "zathura", "zathura-pdf-mupdf", "zathura-djvu",
+      "terminus-font", "ttf-droid", "noto-fonts", "noto-fonts-extra", "noto-fonts-emoji", "noto-fonts-cjk",
+      "mpv", "vlc", "youtube-dl", "qbittorrent", "telegram-desktop",
+      "mpd", "ncmpcpp", "mpc",
+      "xorg-drivers", "alsa-firmware", "sof-firmware"
+    ],
+    "_aur_packages": [
+      "xkb-switch", "google-chrome", "cmst"
+    ],
+    "services": {
+      "connman", "connman-vpn", "sshd"
+    },
+    "kernels": [
+        "linux"
+    ],
+    "keyboard-language": "us",
+    "gfx_driver": "All open-source",
+    "mirror-region": "Ukraine",
+    "ntp": true,
+    "profile": "xorg",
+    "sys-encoding": "utf-8",
+    "sys-language": "en_US",
+    "timezone": "Europe/Kiev",
+    "swap": false,
+    "hostname": "t15",
+    "harddrives": [
+        "/dev/nvme0n1"
+    ]
+}

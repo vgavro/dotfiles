@@ -1,0 +1,6 @@
+{
+	"!root-password": "_change-with-passwd",
+	"!superusers": {
+		"vgavro": {"!password": "_change-with-passwd"}
+	}
+}
