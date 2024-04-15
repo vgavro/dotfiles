@@ -1,0 +1,32 @@
+[colors.bright]
+black = "#151515"
+blue = "#227fe2"
+cyan = "#00bfff"
+green = "#1dc160"
+magenta = "#8138f2"
+red = "#fd110b"
+white = "#e1dddd"
+yellow = "#e8bb35"
+
+[colors.normal]
+black = "#151515"
+blue = "#227fe2"
+cyan = "#00bfff"
+green = "#1dc160"
+magenta = "#8138f2"
+red = "#fd110b"
+white = "#e1dddd"
+yellow = "#e8bb35"
+
+[colors.primary]
+background = "#151515"
+foreground = "#ffffff"
+
+[env]
+TERM = "xterm-256color"
+
+[font]
+size = 10.0
+
+[font.normal]
+family = "Terminus"

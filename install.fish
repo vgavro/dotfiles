@@ -31,6 +31,7 @@ if [ $DESKTOP ]
 
     _map .xinitrc
     _map .Xresources
+    _map .xprofile
 
     _map .config/mimeapps.list
 
@@ -39,6 +40,8 @@ if [ $DESKTOP ]
     _map .config/awesome/vgavro-theme
 
     _map .config/gtk-3.0/settings.ini
+
+    _map .config/alacritty/alacritty.toml
 
     _map .config/mpv
 
